@@ -16,6 +16,10 @@ import { MsalGuard, MsalInterceptor, MsalBroadcastService, MsalInterceptorConfig
 
 import { environment } from 'src/environments/environment';
 import { RouterOutlet } from '@angular/router';
+import { ChatInnerModule } from './_metronic/partials';
+import { LayoutModule } from './_metronic/layout';
+import { TranslateModule } from '@ngx-translate/core';
+import { DescuentosComponent } from './pages/descuentos/descuentos.component';
 
 export function loggerCallback(logLevel: LogLevel, message: string) {
   console.log(message);
@@ -27,8 +31,8 @@ export function MSALInstanceFactory(): IPublicClientApplication {
     auth: {
       clientId: environment.msalConfig.auth.clientId,
       authority: environment.msalConfig.auth.authority,
-      redirectUri: 'http://localhost:4200/',
-      postLogoutRedirectUri: 'http://localhost:4200/'
+      redirectUri: 'http://localhost:4200/home',
+      postLogoutRedirectUri: 'http://localhost:4200'
     },
     cache: {
       cacheLocation: BrowserCacheLocation.LocalStorage
@@ -66,7 +70,8 @@ export function MSALGuardConfigFactory(): MsalGuardConfiguration {
 
 @NgModule({
   declarations: [
-    AppComponent,],
+    AppComponent,
+    DescuentosComponent,],
   imports: [
     BrowserModule,
     NoopAnimationsModule, // Animations cause delay which interfere with E2E tests
@@ -78,6 +83,7 @@ export function MSALGuardConfigFactory(): MsalGuardConfiguration {
     HttpClientModule,
     MsalModule,
     RouterOutlet,
+    TranslateModule.forRoot(),
   ],
   providers: [
     {

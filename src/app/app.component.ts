@@ -3,6 +3,14 @@ import { MsalService, MsalBroadcastService, MSAL_GUARD_CONFIG, MsalGuardConfigur
 import { AuthenticationResult, InteractionStatus, PopupRequest, RedirectRequest, EventMessage, EventType } from '@azure/msal-browser';
 import { Subject } from 'rxjs';
 import { filter, takeUntil } from 'rxjs/operators';
+import { TranslationService } from './modules/i18n';
+import {locale as enLang} from './modules/i18n/vocabs/en';
+import {locale as chLang} from './modules/i18n/vocabs/ch';
+import {locale as esLang} from './modules/i18n/vocabs/es';
+import {locale as jpLang} from './modules/i18n/vocabs/jp';
+import {locale as deLang} from './modules/i18n/vocabs/de';
+import {locale as frLang} from './modules/i18n/vocabs/fr';
+import { ThemeModeService } from './_metronic/partials/layout/theme-mode-switcher/theme-mode.service';
 
 @Component({
   selector: 'app-root',
@@ -18,12 +26,22 @@ export class AppComponent implements OnInit, OnDestroy {
   constructor(
     @Inject(MSAL_GUARD_CONFIG) private msalGuardConfig: MsalGuardConfiguration,
     private authService: MsalService,
-    private msalBroadcastService: MsalBroadcastService
+    private msalBroadcastService: MsalBroadcastService,
+    private translationService: TranslationService,
+    private modeService: ThemeModeService
   ) {
+    this.translationService.loadTranslations(
+      enLang,
+      chLang,
+      esLang,
+      jpLang,
+      deLang,
+      frLang);
 
   }
 
   ngOnInit(): void {
+    this.modeService.init();
     this.isIframe = window !== window.parent && !window.opener; // Remove this line to use Angular Universal
     this.setLoginDisplay();
 

@@ -8,17 +8,10 @@
       <!--begin::Wrapper-->
       <div class="<?php echo $params['wrapperClass']?> p-10">
 
-        <button mat-raised-button [matMenuTriggerFor]="loginMenu" *ngIf="!loginDisplay">Login</button>
-        <mat-menu #loginMenu="matMenu">
-          <button mat-menu-item (click)="loginRedirect()">Login using Redirect</button>
-          <button mat-menu-item (click)="loginPopup()">Login using Popup</button>
-        </mat-menu>
+        <button mat-raised-button  (click)="loginRedirect()" *ngIf="!loginDisplay">Login</button>
 
-        <button mat-raised-button [matMenuTriggerFor]="logoutMenu" *ngIf="loginDisplay" (click)="logout()">Logout</button>
-        <mat-menu #logoutMenu="matMenu">
-          <button mat-menu-item (click)="logout()">Logout using Redirect</button>
-          <button mat-menu-item (click)="logout(true)">Logout using Popup</button>
-        </mat-menu>
+
+        <button mat-raised-button  *ngIf="loginDisplay" (click)="logout()">Logout</button>
 
         <div class="container">
           <!--This is to avoid reload during acquireTokenSilent() because of hidden iframe -->
